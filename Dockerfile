@@ -2,6 +2,8 @@ FROM wodby/php:7.3
 
 USER root
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+
 RUN set -eux; \
 	\
 	apk add --no-cache --virtual .fetch-deps gnupg; \
@@ -35,7 +37,7 @@ RUN set -xe; \
     \
     # yaf.
     mkdir -p /usr/src/php/ext/yaf; \
-    yaf_url="http://pecl.php.net/get/yaf-3.0.8.tgz"; \
+    yaf_url="http://pecl.php.net/get/yaf-3.2.5.tgz"; \
     wget -qO- "${yaf_url}" | tar xz --strip-components=1 -C /usr/src/php/ext/yaf; \
     docker-php-ext-configure yaf; \
     docker-php-ext-install yaf; \
